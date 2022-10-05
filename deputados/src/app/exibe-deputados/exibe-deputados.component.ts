@@ -21,4 +21,10 @@ export class ExibeDeputadosComponent implements OnInit {
     });
   }
 
+  obterPartido(id: string){
+    this.ds.obterPartido(id).subscribe(res => {
+      console.log(res.dados)
+    })
+  }
+
 }

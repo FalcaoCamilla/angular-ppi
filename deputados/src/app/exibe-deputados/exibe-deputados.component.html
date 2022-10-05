@@ -1,3 +1,6 @@
+<input type="text" #id>
+<button (click)="obterPartido(id.value)">Buscar por ID do partido</button>
+
 <div *ngFor="let item of deputados">
   {{item.id}} - {{item.nome}}
   <br>
