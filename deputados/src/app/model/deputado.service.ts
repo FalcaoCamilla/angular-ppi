@@ -15,8 +15,13 @@ export class DeputadoService {
     return this.http.get(url);
   }
 
-  obterPartido(id: string): Observable<RespostaAPI>{ //Observable<any>
-    let url = `https://dadosabertos.camara.leg.br/api/v2/partidos/${id}`
+  obterPartido(sigla: string): Observable<RespostaAPI>{ //Observable<any>
+    let url = `https://dadosabertos.camara.leg.br/api/v2/partidos?sigla=${sigla}&ordem=ASC&ordenarPor=sigla`;
     return this.http.get<RespostaAPI>(url);
+  }
+
+  obterLiderPartido(id: string): Observable<any>{
+    let url = `https://dadosabertos.camara.leg.br/api/v2/partidos/${id}/lideres`;
+    return this.http.get(url);
   }
 }

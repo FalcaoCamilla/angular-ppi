@@ -1,21 +1,14 @@
-<input type="text" #id>
-<button (click)="obterPartido(id.value)">Buscar por ID do partido</button>
+<form [formGroup]="consultaForm">
+  <input type="text" #id>
+  <button (click)="obterPartido(id.value)">Buscar partido por sigla</button>
+  <br>
+  <br>
+  <input type="text" #idL>
+  <button (click)="obterLider(idL.value)">Buscar líder do partido</button>
+</form>
 
-<div *ngFor="let item of deputados">
-  {{item.id}} - {{item.nome}}
+<div *ngFor="let item of partido">
+  O partido de sigla {{item.sigla}} é {{item.nome}}
   <br>
-  Email: {{item.email}}
-  <br>
-  Estado: {{item.siglaUf}}
-  <br>
-  Partido: {{item.siglaPartido}}
-  <br>
-  <img [src]="item.urlFoto">
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-
+  Seu ID é: {{item.id}} e por meio dele você poderá consultar os líderes
 </div>
