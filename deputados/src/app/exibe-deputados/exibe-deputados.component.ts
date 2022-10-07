@@ -2,6 +2,7 @@ import { DeputadoService } from './../model/deputado.service';
 import { Component, OnInit } from '@angular/core';
 import { Deputado } from '../model/deputado';
 import { Partido } from '../model/partido';
+import { Lider } from '../model/lider';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 
 @Component({
@@ -13,10 +14,17 @@ export class ExibeDeputadosComponent implements OnInit {
 
   deputados: Deputado[];
   partido: Partido[];
+  lideres: Lider[];
 
-  constructor(private ds: DeputadoService) {
+  public consultaForm: FormGroup = this.fb.group({
+    lider: ['', [Validators.required]],
+    sigla: ['', [Validators.required, Validators.maxLength(5)]]
+  })
+
+  constructor(private ds: DeputadoService, private fb: FormBuilder) {
     this.deputados = [];
     this.partido = [];
+    this.lideres = [];
    }
 
   ngOnInit(): void {
@@ -33,7 +41,7 @@ export class ExibeDeputadosComponent implements OnInit {
 
   obterLider(id: string){
     this.ds.obterLiderPartido(id).subscribe(res => {
-      console.log(res.dados)
+      this.lideres = res.dados
     })
   }
 

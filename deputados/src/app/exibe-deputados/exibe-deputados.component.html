@@ -1,14 +1,19 @@
 <form [formGroup]="consultaForm">
-  <input type="text" #id>
+  <input type="text" formControlName="sigla" #id>
   <button (click)="obterPartido(id.value)">Buscar partido por sigla</button>
   <br>
   <br>
-  <input type="text" #idL>
-  <button (click)="obterLider(idL.value)">Buscar líder do partido</button>
+  <input type="text" formControlName="lider" #idL>
+  <button [disabled]="consultaForm.invalid" (click)="obterLider(idL.value)">Buscar líder do partido</button>
 </form>
 
 <div *ngFor="let item of partido">
-  O partido de sigla {{item.sigla}} é {{item.nome}}
+  {{item.sigla}} é a sigla do partido {{item.nome}}
+  Seu codigo para consultas extras e: {{item.id}}
   <br>
-  Seu ID é: {{item.id}} e por meio dele você poderá consultar os líderes
+</div>
+
+<div *ngFor="let item of lideres, let i = index">
+{{i}} - {{item.nome}}
+  <br>
 </div>
