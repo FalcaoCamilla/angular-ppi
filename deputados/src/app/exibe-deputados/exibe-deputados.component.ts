@@ -15,16 +15,22 @@ export class ExibeDeputadosComponent implements OnInit {
   deputados: Deputado[];
   partido: Partido[];
   lideres: Lider[];
+  cod: any;
 
   public consultaForm: FormGroup = this.fb.group({
-    lider: ['', [Validators.required]],
-    sigla: ['', [Validators.required, Validators.maxLength(5)]]
+    sigla: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(5)]],
+
+  })
+
+  public newConsultaForm: FormGroup = this.fb.group({
+    lider: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(5)]],
   })
 
   constructor(private ds: DeputadoService, private fb: FormBuilder) {
     this.deputados = [];
     this.partido = [];
     this.lideres = [];
+    this.cod='';
    }
 
   ngOnInit(): void {
@@ -36,10 +42,15 @@ export class ExibeDeputadosComponent implements OnInit {
   obterPartido(sigla: string){
     this.ds.obterPartido(sigla).subscribe(res => {
       this.partido = res.dados
+      this.cod = res.dados[0]['id']
+      console.log(this.cod)
     })
   }
 
   obterLider(id: string){
+    this.obterPartido(id)
+    id = this.cod
+    console.log(id)
     this.ds.obterLiderPartido(id).subscribe(res => {
       this.lideres = res.dados
     })
