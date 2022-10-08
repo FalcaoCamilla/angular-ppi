@@ -1,34 +1,35 @@
-<p>Informe a sigla de um partido para buscar seu nome e de seus representantes</p>
-
-<br>
-
 <form [formGroup]="consultaForm">
-  <label for="sigla">Informe a sigla do Partido para buscar seu nome oficial:</label>
+  <label for="sigla">Informe a sigla do Partido para buscar</label>
   <br>
   <input type="text" formControlName="sigla" #id>
   <button [disabled]="consultaForm.invalid" (click)="obterPartido(id.value)">Buscar</button>
-  <button [disabled]="consultaForm.invalid" (click)="obterLider(id.value)">Buscar</button>
 </form>
 <br>
 
+<div *ngIf="consultaForm.valid">
   <div *ngFor="let item of partido">
     {{item.sigla}} é a sigla do partido {{item.nome}}
     <br>
     <br>
     <br>
+  <label for="consulta">Selecione outro tipo de consulta</label>
+  <br>
+  <select #option name="consulta">
+    <option value="">Selecione uma opção</option>
+    <option value="lideres">Líderes do {{item.sigla}}</option>
+    <option value="deputados">Deputados do {{item.sigla}}</option>
+  </select>
+  <button (click)="select(option.value, id.value)">Buscar</button>
   </div>
 
+  <div *ngFor="let item of lideres, let i = index">
+    {{i}} - {{item.nome}}
+    <br>
+  </div>
 
-<form [formGroup]="newConsultaForm">
-  <label for="lider">Agora, informe a sigla do Partido para buscar seus lideres:</label>
-  <br>
-  <input type="text" formControlName="lider" #idL>
-  <button [disabled]="newConsultaForm.invalid" (click)="obterLider(idL.value)">Buscar líder do partido</button>
-</form>
+  <div *ngFor="let item of depPartido, let i = index">
+    {{i}} - {{item.nome}}
+    <br>
+  </div>
 
-<br>
-
-<div *ngFor="let item of lideres, let i = index">
-  {{i}} - {{item.nome}}
-  <br>
 </div>

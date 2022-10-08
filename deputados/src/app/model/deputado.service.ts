@@ -1,4 +1,4 @@
-import { RespostaAPI } from './resposta';
+import { RespostaAPI } from './generic';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ export class DeputadoService {
 
   constructor(private http: HttpClient) { }
 
-  obterTodos(): Observable<any> {
+  obterDeputados(): Observable<any> {
     let url = 'https://dadosabertos.camara.leg.br/api/v2/deputados?ordem=ASC&ordenarPor=nome';
     return this.http.get(url);
   }
@@ -23,5 +23,10 @@ export class DeputadoService {
   obterLiderPartido(id: string): Observable<any>{
     let url = `https://dadosabertos.camara.leg.br/api/v2/partidos/${id}/lideres`;
     return this.http.get(url);
+  }
+
+  obterDepPartido(sigla: string): Observable<any>{
+    let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?siglaPartido=${sigla}&ordem=ASC`
+    return this.http.get(url)
   }
 }
