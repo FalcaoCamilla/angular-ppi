@@ -19,6 +19,7 @@ export class ExibeDeputadosComponent implements OnInit {
   depPartido: DepPartido[]
   cod: any;
   value: string;
+  msgErro: string = "Desculpe, não consegui identificar. Informe uma sigla válida."
 
   public consultaForm: FormGroup = this.fb.group({
     sigla: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(5)]],
@@ -69,7 +70,7 @@ export class ExibeDeputadosComponent implements OnInit {
 
   obterLider(id: string){
     id = this.cod
-    console.log(id)
+    //console.log(id)
     this.ds.obterLiderPartido(id).subscribe(res => {
       this.lideres = res.dados
     })

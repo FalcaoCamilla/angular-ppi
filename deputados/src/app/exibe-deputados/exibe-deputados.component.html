@@ -1,35 +1,37 @@
-<form [formGroup]="consultaForm">
+<h1>Dados <span>Abertos</span></h1>
+<form [formGroup]="consultaForm" class="form">
   <label for="sigla">Informe a sigla do Partido para buscar</label>
-  <br>
   <input type="text" formControlName="sigla" #id>
   <button [disabled]="consultaForm.invalid" (click)="obterPartido(id.value)">Buscar</button>
+  <!--div dentro do form apenas para centralizar-->
+  <div *ngIf="consultaForm.dirty && consultaForm.invalid" class="invalid">
+    <p class="invalid">A sigla deve ter no mínimo 2 caracteres</p>
+  </div>
 </form>
-<br>
 
-<div *ngIf="consultaForm.valid">
+
+
+<div *ngIf="consultaForm.valid" class="partido">
   <div *ngFor="let item of partido">
-    {{item.sigla}} é a sigla do partido {{item.nome}}
-    <br>
-    <br>
-    <br>
+   <p> {{item.sigla}} é a sigla do partido {{item.nome}} </p>
   <label for="consulta">Selecione outro tipo de consulta</label>
   <br>
-  <select #option name="consulta">
-    <option value="">Selecione uma opção</option>
-    <option value="lideres">Líderes do {{item.sigla}}</option>
-    <option value="deputados">Deputados do {{item.sigla}}</option>
-  </select>
-  <button (click)="select(option.value, id.value)">Buscar</button>
+    <div class="style">
+      <select #option name="consulta">
+        <option value="">Selecione uma opção</option>
+        <option value="lideres">Líderes do {{item.sigla}}</option>
+        <option value="deputados">Deputados do {{item.sigla}}</option>
+      </select>
+      <button (click)="select(option.value, id.value)" id="btn-select">Buscar</button>
+    </div>
   </div>
 
-  <div *ngFor="let item of lideres, let i = index">
-    {{i}} - {{item.nome}}
-    <br>
+  <div *ngFor="let item of lideres, let i = index" class="result">
+    {{item.nome}} <img src="{{item.urlFoto}}">
   </div>
 
-  <div *ngFor="let item of depPartido, let i = index">
-    {{i}} - {{item.nome}}
-    <br>
+  <div *ngFor="let item of depPartido, let i = index" class="result">
+    {{item.nome}} <img src="{{item.urlFoto}}">
   </div>
 
 </div>
